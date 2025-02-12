@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { Customer } from './customers.entity';
 
@@ -12,10 +12,9 @@ export class CustomersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Customer> {
-    return this.customersService.findOne(Number(id)); // No need for `null` handling anymore
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Customer> {
+    return this.customersService.findOne(id); // No need for `null` handling anymore
   }
-
 
   @Post()
   create(@Body() customerData: Partial<Customer>): Promise<Customer> {
@@ -23,7 +22,12 @@ export class CustomersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.customersService.remove(Number(id));
+  remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.customersService.remove(id);
+  }
+
+  @Get('test')
+  async testDb() {
+    return await this.customersService.findOne(1);
   }
 }

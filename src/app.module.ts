@@ -12,8 +12,11 @@ import { CustomersModule } from './customers/customers.module';
       password: 'PA$$word10',
       database: 'agency', // Change if needed
       autoLoadEntities: true, // Automatically loads entities
-      synchronize: true, // Auto-create tables (disable in production)
-      ssl: true,
+      synchronize: false, // Auto-create tables (disable in production)
+      ssl: {
+        rejectUnauthorized: false,  // Fixes SSL issues
+      },
+      logging: true,
     }),
     CustomersModule, // Registers the Customers Module
   ],

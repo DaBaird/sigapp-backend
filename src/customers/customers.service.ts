@@ -15,18 +15,22 @@ export class CustomersService {
   }
 
   async findOne(id: number): Promise<Customer> {
-    const customer = await this.customersRepository.findOneBy({ id });
-    if (!customer) {
-      throw new NotFoundException(`Customer with ID ${id} not found`); // Instead of returning null, throw an error
-    }
-    return customer;
+    console.log(`Fetching customer with ID: ${id}`);
+    const customer = await this.customersRepository.find();
+    console.log(`All customers in DB:`, customer);
+    return this.customersRepository.findOneByOrFail({ id });
   }
+
+//  async findOne(id: number): Promise<Customer> {
+//    return this.customersRepository.findOneByOrFail({ id });
+//  }
   
   async create(customerData: Partial<Customer>): Promise<Customer> {
     return this.customersRepository.save(customerData);
   }
 
   async remove(id: number): Promise<void> {
-    await this.customersRepository.delete(id);
-  }
+    const customer = await this.findOne(id); // This ensures NotFoundException is thrown if customer doesn’t exist
+    await this.customersRepository.remove(customer);
+  }  
 }
