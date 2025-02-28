@@ -13,11 +13,19 @@ let nestApp: any = null; // Stores the NestJS instance
 
 async function bootstrap() {
   if (!nestApp) {
-    // ✅ Correctly initialize NestJS with ExpressAdapter
+    // ✅ Initialize NestJS
     nestApp = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
 
-    // ✅ Initialize the app fully before handling requests
+    // ✅ Enable CORS (Just in case Azure requests are blocked)
+    nestApp.enableCors();
+
+    // ✅ Await app initialization
     await nestApp.init();
+
+    // ✅ Attach ExpressApp to listen to Azure Functions HTTP requests
+    expressApp.use(express.json());
+    expressApp.use(express.urlencoded({ extended: true }));
+
     console.log('✅ NestJS App Initialized');
   }
 }
