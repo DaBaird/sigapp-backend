@@ -9,9 +9,13 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
     "baseUrl": "./",
+    "esModuleInterop": true,
     "incremental": true,
     "skipLibCheck": true,
+    "strictPropertyInitialization": false,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
@@ -19,5 +23,6 @@
     "noFallthroughCasesInSwitch": false,
     "typeRoots": ["node_modules/@types", "node_modules/@azure"],
     "types": ["node", "jest"]
-  }
+  },
+  "include": ["src"]
 }
