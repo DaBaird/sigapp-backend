@@ -33,7 +33,7 @@ jobs:
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           npm install --legacy-peer-deps
-          npm install --save-dev @nestjs/testing@10.4.15
+          npm install --save-dev @nestjs/testing@10.4.15 @types/jest ts-jest jest
           export NODE_ENV=production
           export DATABASE_HOST="${{ secrets.DATABASE_HOST }}"
           export DATABASE_PORT="${{ secrets.DATABASE_PORT }}"

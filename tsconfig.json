@@ -18,6 +18,6 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "typeRoots": ["node_modules/@types", "node_modules/@azure"],
-    "types": ["node"]
+    "types": ["node", "jest"]
   }
 }
